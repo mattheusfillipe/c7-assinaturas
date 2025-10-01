@@ -243,7 +243,7 @@ export default function Home() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className='w-full px-4 py-3 border bg-[#fff9ed] border-[#f37521] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f37521]text-lg text-[#1b1b1b]'
-              placeholder='Fulano de Tal'
+              placeholder='John Doe'
             />
           </div>
 

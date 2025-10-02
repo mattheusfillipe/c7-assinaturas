@@ -15,9 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Gerador de assinaturas',
   description: 'C7 Auto',
-  icons: {
-    icon: '@/src/app/favicon.ico',
-  },
 }
 
 export default function RootLayout({
@@ -27,11 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`antialiased`}>{children}</body>
     </html>
   )
 }

@@ -3,6 +3,11 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { Download } from 'lucide-react'
+// Import Swiper components and styles
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -220,13 +225,13 @@ export default function Home() {
 
     // Create download link
     const link = document.createElement('a')
-    link.download = `email-signature-${name.replace(/\s+/g, '-')}.png`
+    link.download = `assinaturaC7-${name.replace(/\s+/g, '-')}.png`
     link.href = generatedImage
     link.click()
   }
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center p-4 md:p-8'>
+    <div className='my-5 border border-gray-50/20 rounded-2xl min-h-screen flex flex-col bg-[var(--background)]/70 w-3xl mx-auto p-4 md:p-8'>
       <main className='w-full max-w-4xl'>
         <h1 className='text-3xl font-bold mb-6 text-center'>
           Gerador de Assinatura de E-mail
@@ -242,6 +247,7 @@ export default function Home() {
               id='name'
               value={name}
               onChange={(e) => setName(e.target.value)}
+              autoComplete='off'
               className='w-full px-4 py-3 border bg-[#fff9ed] border-[#f37521] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f37521]text-lg text-[#1b1b1b]'
               placeholder='John Doe'
             />
@@ -259,6 +265,7 @@ export default function Home() {
               id='position'
               value={position}
               onChange={(e) => setPosition(e.target.value)}
+              autoComplete='off'
               className='w-full px-4 py-3 border bg-[#fff9ed] border-[#f37521] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f37521]text-lg text-[#1b1b1b]'
               placeholder='Ex.: Analista de Google Ads'
             />
@@ -273,6 +280,7 @@ export default function Home() {
               id='phone'
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              autoComplete='off'
               className='w-full px-4 py-3 border bg-[#fff9ed] border-[#f37521] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f37521]text-lg text-[#1b1b1b]'
               placeholder='61 9 9999-9999'
             />
@@ -287,6 +295,7 @@ export default function Home() {
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete='off'
               className='w-full px-4 py-3 border bg-[#fff9ed] border-[#f37521] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f37521]text-lg text-[#1b1b1b]'
               placeholder='exemplo@c7auto.com'
             />
@@ -298,27 +307,49 @@ export default function Home() {
                 Selecione o template da assinatura
               </h2>
             </label>
-            <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-              {subscriptionImages.map((image) => (
-                <div
-                  key={image.id}
-                  className={`border rounded-lg p-2 cursor-pointer transition-all ${
-                    selectedImage === image.url
-                      ? 'border-[#f37521] ring-[#f37521] ring-1'
-                      : 'border-gray-100 hover:border-gray-300'
-                  }`}
-                  onClick={() => setSelectedImage(image.url)}
-                >
-                  <div className='h-24 relative'>
-                    <Image
-                      src={image.url}
-                      alt={image.name}
-                      fill
-                      className='object-cover w-full h-full inset-0 absolute rounded-lg'
-                    />
-                  </div>
-                </div>
-              ))}
+            {/* Swiper for template selection */}
+            <div className='relative'>
+              <Swiper
+                modules={[Navigation]}
+                spaceBetween={20}
+                slidesPerView={2}
+                navigation
+                breakpoints={{
+                  // when window width is >= 768px
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                  },
+                  // when window width is >= 1024px
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                  },
+                }}
+                className='mySwiper'
+              >
+                {subscriptionImages.map((image) => (
+                  <SwiperSlide key={image.id}>
+                    <div
+                      className={`border rounded-lg p-2 cursor-pointer transition-all h-full ${
+                        selectedImage === image.url
+                          ? 'border-[#f37521] rounded-xl'
+                          : 'border-gray-100 hover:border-gray-300 rounded-xl'
+                      }`}
+                      onClick={() => setSelectedImage(image.url)}
+                    >
+                      <div className='h-48 relative'>
+                        <Image
+                          src={image.url}
+                          alt={image.name}
+                          fill
+                          className='object-cover w-full h-full inset-0 absolute rounded-lg'
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
 
@@ -338,7 +369,7 @@ export default function Home() {
               <div className='mt-6 text-center flex justify-center gap-4'>
                 <button
                   onClick={handleDownloadImage}
-                  className='flex gap-2 items-center py-3 px-6 bg-[#f37521] hover:brightness-75 cursor-pointer text-white font-medium text-lg rounded-md transition-colors'
+                  className='flex gap-2 items-center py-3 px-6 bg-[#f37521] hover:brightness-90 cursor-pointer text-white font-medium text-lg rounded-md transition-all duration-300'
                 >
                   <Download size={24} /> Download
                 </button>

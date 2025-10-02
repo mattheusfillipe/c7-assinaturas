@@ -233,7 +233,7 @@ export default function Home() {
   return (
     <div className='my-5 border border-gray-50/20 rounded-2xl min-h-screen flex flex-col bg-[var(--background)]/70 w-3xl mx-auto p-4 md:p-8'>
       <main className='w-full max-w-4xl'>
-        <h1 className='text-3xl font-bold mb-6 text-center'>
+        <h1 className='text-3xl font-bold mb-6 text-center font-mono bg-gradient-to-r from-[#6e6e6e] to-[#fff9ed] bg-clip-text text-transparent'>
           Gerador de Assinatura de E-mail
         </h1>
 
